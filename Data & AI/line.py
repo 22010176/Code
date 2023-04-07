@@ -83,21 +83,9 @@ def linear_line(x, y, digit=5):
     print(f"MSE = {mse}")
     print(f"RMSE = {rmse}")
     print("__________________________________")
-    print(f"SSR = {ssr}")
+    print(f"SSE = SSR = {ssr}")
     print(f"SST = {sst}")
     print(f"R1 = {r1}")
     print(f"R2 = {r2}")
 
     return x_, y_, ssx, ssxy, mae, mse, rmse, ssr, sst
-
-
-# print(linear_line([1, 2, 3, 4, 5, 6], [.5, 2.9, 3.2, 3.7, 4.8, 6.1]))
-# xtb = 3.5
-# ytb = 3.5333
-# SSx = 17.5
-# SSxy = 17.1
-# y = 0.9771*x + 0.1135
-# MAE = 0.3705
-# MSE = 0.204
-# RMSE = 0.4517
-# R1 = 0.9317
