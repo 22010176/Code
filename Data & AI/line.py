@@ -2,17 +2,18 @@ from random import *
 
 
 def average(num):
+    return Sum(num) / len(num)
+
+
+def Sum(num):
     sum = 0
     for i in num:
         sum += i
-    return sum / len(num)
+    return sum
 
 
 def R_(num, val):
-    sum = 0
-    for i in num:
-        sum += (i-val)**2
-    return sum
+    return Sum([(i-val)**2 for i in num])
 
 
 def create_line(a, b):
@@ -20,17 +21,12 @@ def create_line(a, b):
 
 
 def SSx(num):
-    ave, sum = average(num), 0
-    for i in num:
-        sum += (i-ave)**2
-    return sum
+    return R_(num, average(num))
 
 
 def SSxy(num1, num2):
-    sum, ave1, ave2 = 0, average(num1), average(num2)
-    for i in range(len(num1)):
-        sum += (num1[i]-ave1)*(num2[i]-ave2)
-    return sum
+    ave1, ave2 = average(num1), average(num2)
+    return Sum([(num1[i]-ave1)*(num2[i]-ave2) for i in range(len(num1))])
 
 
 def B0(y, b0, x):
@@ -38,23 +34,15 @@ def B0(y, b0, x):
 
 
 def B1(num1, num2):
-    ssx = SSx(num1)
-    ssxy = SSxy(num1, num2)
-    return ssxy/ssx
+    return SSxy(num1, num2)/SSx(num1)
 
 
 def MAE(x, y, Y):
-    sum = 0
-    for i in range(len(x)):
-        sum += abs(Y(x[i])-y[i])
-    return sum/len(x)
+    return average([abs(Y(x[i])-y[i]) for i in range(len(x))])
 
 
 def MSE(x, y, Y):
-    sum = 0
-    for i in range(len(x)):
-        sum += (Y(x[i])-y[i])**2
-    return sum/len(x)
+    return average([(Y(x[i])-y[i])**2 for i in range(len(x))])
 
 
 def RMSE(x, y, Y):
@@ -81,6 +69,7 @@ def linear_line(x, y, digit=5):
     print(f"ytb = {y_}")
     print(f"SSx = {ssx}")
     print(f"SSxy = {ssxy}")
+    print("y = b1*x + b0")
     print(f"y = {b1}*x + {b0}")
 
     [mae, mse, rmse, r1, r2] = [round(i, digit) for i in [MAE(
@@ -91,9 +80,20 @@ def linear_line(x, y, digit=5):
     print(f"R1 = {r1}")
     print(f"R2 = {r2}")
 
+    return {x_, y_, b1, b0, ssx, ssxy, mae, mse, rmse, r1, r2}
+
 
 linear_line(
     [1, 2, 3, 4, 5, 6],
     [.5, 2.9, 3.2, 3.7, 4.8, 6.1],
-    digit=4
+    digit=5
 )
+# xtb = 3.5
+# ytb = 3.5333
+# SSx = 17.5
+# SSxy = 17.1
+# y = 0.9771*x + 0.1135
+# MAE = 0.3705
+# MSE = 0.204
+# RMSE = 0.4517
+# R1 = 0.9317
