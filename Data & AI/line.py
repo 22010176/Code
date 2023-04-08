@@ -1,74 +1,76 @@
 from random import *
+from math import *
 
 
-def average(num):
+def aver(num):
     return sum(num) / len(num)
 
 
 def R_(num, val):
-    return sum([(i-val)**2 for i in num])
+    return sum([pow(i-val, 2) for i in num])
 
 
 def create_line(a, b):
     return lambda x: (a*x + b)
 
 
-def SSx(num):
-    return R_(num, average(num))
+def SSx(x, x_):
+    return R_(x, x_)
 
 
-def SSxy(x, y):
-    ave1, ave2 = average(x), average(y)
-    return sum([(a-ave1)*(b-ave2) for (a, b) in zip(x, y)])
+def SSxy(x, y, x_, y_):
+    return sum([(a-x_)*(b-y_) for a, b in zip(x, y)])
 
 
-def B0(y, b0, x):
-    return y - b0*x
+def B0(y, a, x):
+    return y - a*x
 
 
-def B1(num1, num2):
-    return SSxy(num1, num2)/SSx(num1)
+def B1(x, y, x_, y_):
+    return SSxy(x, y, x_, y_)/SSx(x, x_)
 
 
-def MAE(x, y, Y):
-    return average([abs(Y(a)-b) for (a, b) in zip(x, y)])
+def MAE(y, Y):
+    return aver([(b-a if b > a else a-b) for a, b in zip(y, Y)])
 
 
-def MSE(x, y, Y):
-    return average([(Y(a)-b)**2 for (a, b) in zip(x, y)])
+def MSE(y, Y):
+    return aver([pow(b-a, 2) for a, b in zip(y, Y)])
 
 
-def RMSE(x, y, Y):
-    return MSE(x, y, Y)**0.5
+def RMSE(y, Y):
+    return sqrt(MSE(y, Y))
 
 
-def SSR(x, a, Y):
-    return R_([Y(i) for i in x], a)
+def SSR(Y, a):
+    return R_(Y, a)
 
 
 def SST(y, a):
     return R_(y, a)
 
 
-def R1(x, y, Y):
-    a = average(y)
-    return SSR(x, a, Y)/SST(y, a)
+def R1(y, Y, y_):
+    return SSR(Y, y_)/SST(y, y_)
 
 
-def R2(x, y, Y):
-    return 1 - (MSE(x, y, Y)*len(y)) / R_(y, average(y))
+def R2(y, Y, y_):
+    return 1 - sum([pow(b-a, 2) for a, b in zip(y, Y)]) / R_(y, y_)
 
 
-def linear_line(x, y, digit=5):
-    [x_, y_, b1] = [round(i, digit)
-                    for i in [average(x), average(y),  B1(x, y)]]
-    [ssx, ssxy, b0] = [round(i, digit)
-                       for i in [SSx(x), SSxy(x, y), B0(y_, b1, x_)]]
+def linear_line1(x, y):
+    [x2, y2] = [[*x], [*y]]
+    [x_, y_] = [i for i in [aver(x), aver(y)]]
+    [ssx, ssxy] = [i for i in [SSx(x, x_), SSxy(x, y, x_, y_)]]
+    [b1, b0] = [ssxy/ssx, B0(y_, ssxy/ssx, x_)]
     line = create_line(b1, b0)
+    y_pred = [line(i) for i in x2]
+    [mae, mse, rmse, ssr, sst, r1, r2] = [i for i in [MAE(y2, y_pred), MSE(y2, y_pred), RMSE(
+        y2, y_pred), SSR(y_pred, y_), SST(y2, y_), R1(y2, y_pred, y_), R2(y2, y_pred, y_)]]
 
     print("__________________________________")
-    print("y = b1*x + b0")
-    print(f"y = {b1}*x + {b0}")
+    print("Y = b1.X + b0")
+    print(f"Y = {b1}.X + {b0}")
     print("__________________________________")
     print(f"xtb = {x_}")
     print(f"ytb = {y_}")
@@ -76,9 +78,6 @@ def linear_line(x, y, digit=5):
     print(f"SSx = {ssx}")
     print(f"SSxy = {ssxy}")
     print("__________________________________")
-
-    [mae, mse, rmse, ssr, sst, r1, r2] = [round(i, digit) for i in [MAE(x, y, line), MSE(
-        x, y, line), RMSE(x, y, line), SSR(x, y_, line), SST(y, y_), R1(x, y, line), R2(x, y, line)]]
     print(f"MAE = {mae}")
     print(f"MSE = {mse}")
     print(f"RMSE = {rmse}")
@@ -88,4 +87,4 @@ def linear_line(x, y, digit=5):
     print(f"R1 = {r1}")
     print(f"R2 = {r2}")
 
-    return x_, y_, ssx, ssxy, mae, mse, rmse, ssr, sst
+    return x_, y_, ssx, ssxy, b1, b0, mae, mse, r1, r2, ssr, sst
