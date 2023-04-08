@@ -20,6 +20,7 @@ def linear_line2(prediction_list, target_list):
     #     print("Error: Prediction and target lists must have the same length.\n")
     #     continue  # Ask user for input again
 
+    # Calculate average X and Y
     n = len(prediction_list)
     average_x = sum(prediction_list) / n
     average_y = sum(target_list) / n
@@ -27,7 +28,7 @@ def linear_line2(prediction_list, target_list):
     # Calculate sums of squares
     SSx = sum([(x - average_x) ** 2 for x in prediction_list])
     SSxy = sum([(x - average_x) * (y - average_y)
-                for x, y in zip(prediction_list, target_list)])
+               for x, y in zip(prediction_list, target_list)])
 
     # Calculate regression line
     a = SSxy / SSx
@@ -41,7 +42,7 @@ def linear_line2(prediction_list, target_list):
     mse = sum([(p - t) ** 2 for p, t in zip(prediction_list, target_list)]) / n
     rmse = math.sqrt(mse)
     SSR = sum([(a * x + b - y) ** 2 for x,
-               y in zip(prediction_list, target_list)])
+              y in zip(prediction_list, target_list)])
     SST = sum([(y - average_y) ** 2 for y in target_list])
     R1 = 1 - (SSR / SST)
     R2 = 1 - (mse / (n * variance_y))
