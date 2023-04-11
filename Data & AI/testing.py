@@ -1,8 +1,9 @@
 from line import linear_line1 as my
-from LOGIC import linear_line2 as ee
+from line2 import linear_line3 as my2
 from random import *
 import os
 import matplotlib.pyplot as plt
+import json
 
 
 def drawGrap(*t):
@@ -43,18 +44,24 @@ acc = 9
 
 
 def test(funcs, *test):
-    a = [[i, f.__name__, map(lambda i:round(i, acc), f(*test[i]))]
+    a = [{'n': i, 'name': f.__name__, 'data': test[i], 'result': map(lambda i:round(i, acc), f(*test[i]))}
          for f in funcs for i in range(len(test))]
-    a.sort(key=lambda x: x[0])
+    a.sort(key=lambda x: x['n'])
     os.system("cls")
+    data = {}
     for i in a:
-        i[2] = {key: val for (key, val) in zip(CATE, i[2])}
-        out(i)
+        temp = i.copy()
+        temp.pop('name')
+        temp.pop('data')
+        temp.update(
+            {'result': {CATE[ind]: val for ind, val in enumerate(temp.get('result'))}})
+        data.update({i.get('name'): temp})
+
+        # out(i)
         if (a.index(i)+1) % len(funcs) == 0:
             print("_"*100)
-
-
-nums = 30000
+    with open('./a.json', 'w') as f:
+        json.dump(data, f, indent=2)
 
 
 def test_Ger(len_cords, nums):
@@ -62,7 +69,7 @@ def test_Ger(len_cords, nums):
 
 
 test(
-    [my, ee],
+    [my, my2],
     [[1, 2, 3, 4], [1, 2, 3.5, 5]],
-    # *test_Ger(1000, 20)
+    *test_Ger(2000, 1000)
 )
