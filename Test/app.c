@@ -20,7 +20,7 @@ void Tong(int k) {
 void Dem(int m) {
   int X, i = 0, c, tg;
   scanf("%d", &X);
-  for (int i = 0; i < m; i++) {
+  for (; i < m; i++) {
     scanf("%d", &tg);
     if (tg == X) c++;
   }
