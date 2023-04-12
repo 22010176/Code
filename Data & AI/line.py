@@ -93,3 +93,12 @@ def linear_line1(x, y, digit=5):
     out([x_, y_, ssx, ssxy, b1, b0, mae, mse, r1, r2, ssr, sst], digit)
 
     return x_, y_, ssx, ssxy, b1, b0, mae, mse, r1, r2, ssr, sst
+
+
+linear_line1(
+    # cac gia tri cua x
+    x=[1, 2, 3, 4],
+    # cac gia tri cua y
+    y=[2, 3, 4, 5],
+    digit=10  # So thap phan sau dau phay
+)
