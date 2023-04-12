@@ -1,4 +1,4 @@
-from line import linear_line1 as my
+from Chay_code_nay import linear_line1 as my
 from line2 import linear_line3 as my2
 from random import *
 import os
