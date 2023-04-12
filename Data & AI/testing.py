@@ -1,5 +1,5 @@
-from Chay_code_nay import linear_line1 as my
-from line2 import linear_line3 as my2
+from Regression_Line.Chay_code_nay import linear_line1
+from Regression_Line.line2 import linear_line3
 from random import *
 import os
 import matplotlib.pyplot as plt
@@ -43,6 +43,11 @@ CATE = ['aveX', 'aveY', 'SSx', 'SSxy', 'B1',
 acc = 9
 
 
+def dd(val):
+    print(val)
+    return val
+
+
 def test(funcs, *test):
     a = [{'n': i, 'name': f.__name__, 'data': test[i], 'result': map(lambda i:round(i, acc), f(*test[i]))}
          for f in funcs for i in range(len(test))]
@@ -53,15 +58,19 @@ def test(funcs, *test):
         temp = i.copy()
         temp.pop('name')
         temp.pop('data')
-        temp.update(
-            {'result': {CATE[ind]: val for ind, val in enumerate(temp.get('result'))}})
-        data.update({i.get('name'): temp})
+        # print({CATE[ind]: val
+        #       for ind, val in enumerate(temp.get('result'))})
+        # temp.update(
+        #     {'result'+str(i.get('n')): {CATE[ind]: val for ind, val in enumerate(temp.get('result'))}})
+        # temp.update({'result': [*temp.get('result')]})
+        # data.update({i.get('name' + str(a.index(i))): temp})
 
         # out(i)
-        if (a.index(i)+1) % len(funcs) == 0:
-            print("_"*100)
-    with open('./a.json', 'w') as f:
-        json.dump(data, f, indent=2)
+        # if (a.index(i)+1) % len(funcs) == 0:
+        #     print("_"*100)
+    # with open('./a.json', 'w') as f:
+    #     print(data)
+        # json.dump(data, f, indent=2)
 
 
 def test_Ger(len_cords, nums):
@@ -69,7 +78,7 @@ def test_Ger(len_cords, nums):
 
 
 test(
-    [my, my2],
+    [linear_line1],
     [[1, 2, 3, 4], [1, 2, 3.5, 5]],
-    *test_Ger(2000, 1000)
+    *test_Ger(2000, 2)
 )

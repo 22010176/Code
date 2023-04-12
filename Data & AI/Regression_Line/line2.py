@@ -23,10 +23,7 @@ def get_user_input():
         return prediction_list, target_list
 
 
-def linear_line3(x, y):
-    [x_, y_, a, b, SSx, SSxy] = calculate_regression_params(x, y)
-    [mae, mse, rmse, SSR, SST, R1, R2] = calculate_metrics(x, y, a, b)
-    return x_, y_, SSx, SSxy, a, b, mae, mse, R1, R2, SSR, SST
+
 
 
 def calculate_regression_params(prediction_list, target_list):
@@ -107,6 +104,11 @@ def ask_to_continue():
         else:
             print("Error: Please enter Y or N only.\n")
             continue
+
+def linear_line3(x, y):
+    [x_, y_, a, b, SSx, SSxy] = calculate_regression_params(x, y)
+    [mae, mse, rmse, SSR, SST, R1, R2] = calculate_metrics(x, y, a, b)
+    return x_, y_, SSx, SSxy, a, b, mae, mse, R1, R2, SSR, SST
 
 
 def main():
