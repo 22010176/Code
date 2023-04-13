@@ -95,7 +95,7 @@ def TimY(x, y, x0):
     print((create_line(*_MakeLine(x, y)))(x0))
 
 
-def _R2(x, y):
+def TimR2(x, y):
     print(_R1(y, [create_line(*_MakeLine(x, y))(i) for i in x], aver(y)))
 
 
