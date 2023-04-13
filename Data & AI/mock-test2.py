@@ -1,5 +1,5 @@
 from Chay_cai_nay import *
-O = [0 for i in range(1000)]
+O = [0 for _ in range(10000)]
 
 # Bai1
 print("Bai 1")
