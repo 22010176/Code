@@ -95,19 +95,23 @@ def TimY(x, y, x0):
 
 
 def TimR2(x, y):
-    print(_R1(y, [create_line(*_MakeLine(x, y))(i) for i in x], aver(y)))
+    line = create_line(*_MakeLine(x, y))
+    print(_R1(y, [line(i) for i in x], aver(y)))
 
 
 def TimMSE(x, y):
-    print(_MSE(y, [create_line(*_MakeLine(x, y))(i)for i in x]))
+    line = create_line(*_MakeLine(x, y))
+    print(_MSE(y, [line(i)for i in x]))
 
 
 def TimMAE(x, y):
-    print(_MAE(y, [create_line(*_MakeLine(x, y))(i)for i in x]))
+    line = create_line(*_MakeLine(x, y))
+    print(_MAE(y, [line(i)for i in x]))
 
 
 def TimRMSE(x, y):
-    print(sqrt(_MSE(y, [create_line(*_MakeLine(x, y))(i)for i in x])))
+    line = create_line(*_MakeLine(x, y))
+    print(sqrt(_MSE(y, [line(i)for i in x])))
 
 
 def TimSSxy(x, y):
