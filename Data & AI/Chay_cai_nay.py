@@ -1,6 +1,8 @@
 from random import *
 from math import *
 
+O = [0 for _ in range(10000)]
+
 
 def aver(num):
     return sum(num) / len(num)
@@ -124,3 +126,5 @@ def TimSSx(x):
 
 def TimTB(x):
     print(aver(x))
+
+# Lam bai bat dau tu day
