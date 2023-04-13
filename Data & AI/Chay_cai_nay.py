@@ -72,8 +72,8 @@ def TimA(x, y):
     print(_A(x, y))
 
 
-def PhuongSai(x):
-    print(R_(x)/len(x))
+def TimPhuongSai(x):
+    print(R_(x, aver(x))/len(x))
 
 
 def DoLechChuan(x):
