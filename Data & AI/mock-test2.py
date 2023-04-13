@@ -1,6 +1,6 @@
 from Chay_cai_nay import *
 
-# Copy từ code từ dưới dòng này rồi paste vào cái file Chay_cai_nay.py rồi mới chạy. Ko phải chạy trực tiệp ở đây.
+# Copy code từ dưới dòng này rồi paste vào cái file Chay_cai_nay.py rồi mới chạy. Ko phải chạy trực tiệp ở đây.
 O = [0 for _ in range(10000)]
 
 # Bai1
