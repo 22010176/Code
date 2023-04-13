@@ -128,3 +128,4 @@ def TimTB(x):
     print(aver(x))
 
 # Lam bai bat dau tu day
+# Vao mock-test-moi nếu không biết cách dùng.
