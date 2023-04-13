@@ -5,10 +5,6 @@ def MakeLine(x, y):
     return A(x, y), B(x, y)
 
 
-def TB(x):
-    return aver(x)
-
-
 def TBXY(x, y):
     return map(aver, [x, y])
 
@@ -56,13 +52,28 @@ def TimY(x, y, x0):
 
 
 def R2(x, y):
-    line = create_line(*MakeLine(x, y))
-    Y = [line(i) for i in x]
-    print(R1(y, Y, aver(y)))
+    print(R1(y, [create_line(*MakeLine(x, y))(i) for i in x], aver(y)))
 
 
-TimY(
-    [68, 14, 86, 26, 55, 89, 22, 78, 57],
-    [208, 49, 258, 80, 164, 267, 77, 225, 171],
-    175
-)
+def TimMSE(x, y):
+    print(MSE(y, [create_line(*MakeLine(x, y))(i)for i in x]))
+
+
+def TimMAE(x, y):
+    print(MAE(y, [create_line(*MakeLine(x, y))(i)for i in x]))
+
+
+def TimRMSE(x, y):
+    print(sqrt(MSE(y, [create_line(*MakeLine(x, y))(i)for i in x])))
+
+
+def TimSSxy(x, y):
+    print(SSxy(x, y, *TBXY(x, y)))
+
+
+def TimSSx(x):
+    print(R_(x, aver(x)))
+
+
+def TimTB(x):
+    print(aver(x))
