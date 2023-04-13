@@ -127,5 +127,9 @@ def TimSSx(x):
 def TimTB(x):
     print(aver(x))
 
+
 # Lam bai bat dau tu day
 # Vao mock-test-moi nếu không biết cách dùng.
+y = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]  # gia tri thuc
+Y = [1.1, 2.2, 3.3, 4.8, 6, 7.2, 8.4, 9.1, 10.5, 11]  # gia tri du doan
+print(sqrt(_MSE(y, Y)))
