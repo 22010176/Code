@@ -2,6 +2,10 @@ from random import *
 from math import *
 
 
+def DoLechChuan(x):
+    return sqrt(R_(x, aver(x)) / len(x))
+
+
 def aver(num):
     return sum(num) / len(num)
 
