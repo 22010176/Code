@@ -1,4 +1,4 @@
-from utils.calculate import *
+from calculate import *
 
 O = [0 for _ in range(10000)]
 # Bai 1

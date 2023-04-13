@@ -26,10 +26,6 @@ def B1(x, y, x_, y_):
     return SSxy(x, y, x_, y_)/R_(x, x_)
 
 
-def DoLechChuan(x):
-    return sqrt(R_(x, aver(x)) / len(x))
-
-
 def MAE(y, Y):
     return aver([(b-a if b > a else a-b) for a, b in zip(y, Y)])
 
