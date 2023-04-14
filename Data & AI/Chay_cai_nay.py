@@ -131,10 +131,11 @@ def TimTB(x):
 # Lam bai bat dau tu day
 # Vao mock-test-moi nếu không biết cách dùng.
 y = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]  # gia tri thuc
-Y = [1.1, 2.2, 3.3, 4.8, 6, 7.2, 8.4, 9.1, 10.5, 11]  # gia tri du doan
-print(sqrt(_MSE(y, Y)))  # neu no cho san Y du doan va ko yeu cau tim duong thang
+Y = [1.1, 2.2, 3.3, 4.8, 6, 7.2, 8.4, 9.5, 11, 12]  # gia tri du doan
+print(_MAE(y, Y))  # neu no cho san Y du doan va ko yeu cau tim duong thang
 
+# 1.1 2.2 3.3 4.8 6 7.2 8.4 9.1 10.5 11
 
-y2 = [1, 2, 3, 4]
-Y2 = [2, 3, 5, 6]
-print(sqrt(_MSE(y2, Y2)))
+TimRMSE([1, 2, 3, 4], [2, 3, 5.5, 6.5])
+TimRMSE([1, 2, 3, 4], [2, 3, 5, 6])
+# TimMAE([])
