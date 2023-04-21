@@ -1,38 +1,31 @@
 #include <stdio.h>
-
+int check(int arr[], int ite, int len) {
+  for (int i = 0; i < len; i++)
+    if (arr[i] == ite) return 1;
+  return 0;
+}
+int check2(int arr[], int ite, int len) {
+  for (int i = 0, c = 0; i < len; i++) {
+    if (arr[i] == ite) c++;
+    if (c == 2) return 1;
+  }
+  return 0;
+}
 int countDub(int arr[], int len) {
-  int a[len];
-  int lenA = 0, count = 0;
-  for (int i = 0; i < len; i++) {
-    int in = 0;
-    for (int j = 0; j < lenA + 1;j++) {
-      if (a[j] == arr[i]) {
-        int in = 1;
-        break;
-      }
-    }
-    if (!in) {
-      a[lenA++] = arr[i];
-    }
+  int a[len], a_len, count = 0;
+  for (int i = 0, c = 0; i < len; i++) {
+    if (check(a, arr[i], c + 1)) continue;
+    a[c++] = arr[i];
+    a_len = c;
   }
-  for (int i = 0; i < len; i++) {
-    printf("%d ", a[i]);
-  }
-  for (int i = 0; i < lenA;i++) {
-    int time = 0;
-    for (int j = 0; j < len;j++) {
-      if (arr[j] == a[i]) {
-        time++;
-        break;
-      }
-    }
-    if (time >= 2) count++;
+  for (int i = 0; i < a_len; i++) {
+    if (check2(arr, a[i], len)) ++count;
   }
   return count;
 }
 int main() {
-  int a[] = { 1,2,2,9,3,4 };
-  int len = sizeof a / sizeof a[0];
-  printf("%d", countDub(a, len));
+  int arr[] = { 1,2,5,3,5,3,2,9 };
+  int len = sizeof arr / sizeof(arr[0]);
+  printf("%d", countDub(arr, len));
 }
 
