@@ -24,8 +24,5 @@ int countDub(int arr[], int len) {
   return count;
 }
 int main() {
-  int arr[] = { 1,2,5,3,5,3,2,9 };
-  int len = sizeof arr / sizeof(arr[0]);
-  printf("%d", countDub(arr, len));
 }
 
