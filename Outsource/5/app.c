@@ -11,13 +11,13 @@ float* addMatrics(float* a, float* b, int height, int width) {
 void printMaxtrics(float* a, int height, int width) {
   for (int i = 0; i < height; i++) {
     for (int j = 0; j < width; j++) {
-      printf("%.2f ", *(a + i + j));
+      printf("%.1f | ", *(a + i + j));
     }
     printf("\n");
   }
 }
 int main() {
-  int height = 2, width = 2;
+  int height = 5, width = 3;
   float* a = malloc(height * width * sizeof(float));
   float* b = malloc(width * height * sizeof(float));
   for (int i = 0; i < height; i++) {
