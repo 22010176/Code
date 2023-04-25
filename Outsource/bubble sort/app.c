@@ -1,4 +1,6 @@
 #include <stdio.h>
+
+
 int main() {
   int a[9] = { 1, 54, 3, 5, 3, 5, 3, 56, 9 };
   int len = 9;

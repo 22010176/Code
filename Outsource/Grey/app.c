@@ -29,6 +29,8 @@ char* fill(int len, char buff, char in[]) {
   for (int i = 0, c = 0; i < len; i++) ch[i] = (len - i <= ch_len) ? in[c++] : buff;
   return ch;
 }
+
+
 int main() {
   int bit = 7;
   int range = (int)pow(2, bit);

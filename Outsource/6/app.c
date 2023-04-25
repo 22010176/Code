@@ -3,13 +3,9 @@ float* matricesMultiple(float* a, float* b, int* size1, int* size2) {
 
 }
 int main() {
-  int y = 3, x = 2;
-  int* Arr = malloc(y * x * sizeof(int));
-  for (int i = 0; i < y * x;i++) {
-    Arr[i] = (i % x) * 10 + i % y;
-  }
-  for (int i = 0; i < y * x;i++) {
-    if (i % x == 0) printf("\n");
-    printf("%d ", Arr[i]);
+  int width = 2, height = 3;
+  int** arr = malloc(height * sizeof(float*));
+  for (int i = 0; i < height; i++) {
+    *(arr + i) = malloc(width * sizeof(float));
   }
 }
