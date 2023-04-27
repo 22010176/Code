@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+
 int check(int arr[], int ite, int len) {
   for (int i = 0; i < len; i++)
     if (arr[i] == ite) return 1;
@@ -49,3 +51,4 @@ float findMax(float* A, int size) {
     if (A[i] > max) max = A[i];
   return max;
 }
+int main() {}

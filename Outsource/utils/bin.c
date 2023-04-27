@@ -2,7 +2,7 @@
 #include <math.h>
 #include <string.h>
 #include <stdlib.h>
-char Bin(int i) { return i ? '1' : '0'; }
+static char Bin(int i) { return i ? '1' : '0'; }
 char* DtoB(int a) {
   int b = a, mod, i = (int)floor((a ? log2(a) : 0) + 1), d;
   char* ch = malloc((i + 1) * sizeof(char));
