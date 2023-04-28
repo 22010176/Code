@@ -1,5 +1,22 @@
 #include <stdio.h>
 #include "arr.c"
+
+void printMaxtrics(float** a, int* size);
+int* MatrixSize(int x, int y);
+float** createMatrix(int* size);
+float** createMatrix2(int x, int y);
+float** copyMatrix(float** A, int* size);
+float** MatrixMultiply(float** A, float** B, int* size1, int* size2);
+float** DecartMatrix(int size);
+float** MatrixAddition(float** A, float** B, int* size);
+float** I1(int size, float time, int* swap);
+float** I2(int size, float time, int line);
+float** I3(int size, float time, int* line);
+
+int main() {
+  // printMaxtrics(createMatrix2(10, 10), MatrixSize(10, 10));
+}
+
 void printMaxtrics(float** a, int* size) {
   float* max = malloc(size[0] * sizeof(float));
   for (int i = 1; i < size[0]; i++) max[i] = findMax(a[i], size[0]);
@@ -20,6 +37,11 @@ float** createMatrix(int* size) {
   for (int i = 0; i < size[0]; i++) A[i] = malloc(size[1] * sizeof(float));
   return A;
 }
+float** createMatrix2(int x, int y) {
+  float** A = malloc(x * sizeof(float*));
+  for (int i = 0; i < x; i++) A[i] = malloc(y * sizeof(float));
+  return A;
+}
 float** copyMatrix(float** A, int* size) {
   float** B = createMatrix(size);
   for (int i = 0; i < size[0];i++)
@@ -27,19 +49,17 @@ float** copyMatrix(float** A, int* size) {
   return B;
 }
 float** MatrixMultiply(float** A, float** B, int* size1, int* size2) {
-  int* size = CreateArr(2);
-  size[0] = size1[0]; size[1] = size2[1];
-  float** R = createMatrix(size);
+  float** R = createMatrix2(size1[0], size2[1]);
   if (size1[1] != size2[0]) return NULL;
-  for (int i = 0; i < size[0];i++)
-    for (int j = 0; j < size[1];j++) {
+  for (int i = 0; i < size1[0];i++)
+    for (int j = 0; j < size2[1];j++) {
       R[i][j] = 0;
       for (int k = 0; k < size1[1];k++) R[i][j] += A[i][k] * B[k][j];
     }
   return R;
 }
 float** DecartMatrix(int size) {
-  float** I = createMatrix(MatrixSize(size, size));
+  float** I = createMatrix2(size, size);
   for (int i = 0; i < size;i++) for (int j = 0; j < size;j++) I[i][j] = i == j;
   return I;
 }

@@ -44,3 +44,7 @@ float findMax(float* A, int size) {
   for (int i = 1; i < size; i++) if (abs(A[i]) > max) max = A[i];
   return max;
 }
+static float e(float a) { return a; }
+float* findUnique(float* A, int size, float(*f)()) {
+  if (f == NULL) f = e;
+}

@@ -14,15 +14,11 @@ int findNumDup(float* A, int len, int num) {
 }
 float** TriangularMatrix(float** A, int* size) {
   float** B = copyMatrix(A, size);
-  float** num = createMatrix(MatrixSize(size[0], 2));
+  int** C = createMatrix2(size[0], 2);
   for (int i = 0; i < size[0]; i++) {
-    num[i][0] = i;
-    num[i][1] = 0;
+    C[i][0] = i;
+    C[i][1] = findNumDup(A[i], size[1], 0);
   }
-  for (int i = 0; i < size[0]; i++) {
-    num[i][1] = findNumDup(A[i], size[1], 0);
-  }
-  printMaxtrics(num, MatrixSize(size[0], 2));
 }
 int main() {
   int* size = MatrixSize(3, 4);
