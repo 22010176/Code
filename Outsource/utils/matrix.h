@@ -2,7 +2,8 @@
 #include "arr.c"
 
 void printMaxtrics(float** a, int* size);
-int* MatrixSize(int x, int y);
+void printMaxtrics2(float** a, int x, int y);
+int* Vector2(int x, int y);
 float** createMatrix(int* size);
 float** createMatrix2(int x, int y);
 float** copyMatrix(float** A, int* size);
@@ -12,10 +13,6 @@ float** MatrixAddition(float** A, float** B, int* size);
 float** I1(int size, float time, int* swap);
 float** I2(int size, float time, int line);
 float** I3(int size, float time, int* line);
-
-int main() {
-  // printMaxtrics(createMatrix2(10, 10), MatrixSize(10, 10));
-}
 
 void printMaxtrics(float** a, int* size) {
   float* max = malloc(size[0] * sizeof(float));
@@ -27,7 +24,17 @@ void printMaxtrics(float** a, int* size) {
     printf("\n");
   }
 }
-int* MatrixSize(int x, int y) {
+void printMaxtrics2(float** a, int x, int y) {
+  float* max = malloc(x * sizeof(float));
+  for (int i = 0; i < x; i++) max[i] = findMax(a[i], y);
+  int indent = (int)abs(ceil(log10f(findMax(max, x) * 100))) + 4;
+
+  for (int i = 0; i < x; i++) {
+    for (int j = 0; j < y; j++) printf("|%*.2lf", indent, a[i][j]);
+    printf("\n");
+  }
+}
+int* Vector2(int x, int y) {
   int* size = malloc(2 * sizeof(int));
   size[0] = x; size[1] = y;
   return size;
