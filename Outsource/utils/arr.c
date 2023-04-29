@@ -7,7 +7,8 @@ int* insertSort(int* a, int len);
 int* autoGenerateArr(int len);
 int* CreateArr(int len);
 void printArr(int* a, int len);
-float findMax(float* A, int size);
+void printArrf(float* a, int len);
+float findAbsMax(float* A, int size);
 float* findUnique(float* A, int size, float(*f)());
 
 
@@ -51,9 +52,13 @@ int* autoGenerateArr(int len) {
 }
 int* CreateArr(int len) { return malloc(len * sizeof(int)); }
 void printArr(int* a, int len) { for (int i = 0; i < len; i++) printf("%d ", a[i]); }
-float findMax(float* A, int size) {
+void printArrf(float* a, int len) { for (int i = 0; i < len; i++) printf("%lf ", a[i]); }
+float findAbsMax(float* A, int size) {
   float max = A[0];
-  for (int i = 1; i < size; i++) if (abs(A[i]) > max) max = A[i];
+  for (int i = 1; i < size; i++) {
+    float item = A[i] > 0 ? A[i] : -A[i];
+    if (item > max) max = item;
+  }
   return max;
 }
 static float e(float a) { return a; }

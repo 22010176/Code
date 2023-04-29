@@ -17,7 +17,12 @@ float** I2(int size, float time, int line);
 float** I3(int size, float time, int* line);
 void AutoFillMatrix(float** A, int* size);
 
-
+// int main() {
+//   int* size = Vector2(4, 5);
+//   float** A = createMatrix(size);
+//   AutoFillMatrix(A, size);
+//   printMaxtrics(A, size);
+// }
 void AutoFillMatrix(float** A, int* size) {
   for (int i = 0; i < size[0]; i++) for (int j = 0; j < size[1]; j++) A[i][j] = rand() % 10;
 }
@@ -32,8 +37,8 @@ void ReplaceMatrix(float** A, float** B, int* size) {
 }
 void printMaxtrics(float** a, int* size) {
   float* max = malloc(size[0] * sizeof(float));
-  for (int i = 1; i < size[0]; i++) max[i] = findMax(a[i], size[0]);
-  int indent = (int)abs(ceil(log10f(findMax(max, size[0]) * 100))) + 4;
+  for (int i = 1; i < size[0]; i++) max[i] = findAbsMax(a[i], size[0]);
+  int indent = findAbsMax(max, size[0]) + 4;
 
   for (int i = 0; i < size[0]; i++) {
     for (int j = 0; j < size[1]; j++) printf("|%*.2lf", indent, a[i][j]);
@@ -42,8 +47,8 @@ void printMaxtrics(float** a, int* size) {
 }
 void printMaxtrics2(float** a, int x, int y) {
   float* max = malloc(x * sizeof(float));
-  for (int i = 0; i < x; i++) max[i] = findMax(a[i], y);
-  int indent = (int)abs(ceil(log10f(findMax(max, x) * 100))) + 4;
+  for (int i = 0; i < x; i++) max[i] = findAbsMax(a[i], y);
+  int indent = (int)abs(ceil(log10f(findAbsMax(max, x) * 100))) + 4;
 
   for (int i = 0; i < x; i++) {
     for (int j = 0; j < y; j++) printf("|%*.2lf", indent, a[i][j]);
