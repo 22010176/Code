@@ -1,11 +1,13 @@
-#include <stdio.h>
+#include "./hea.h"
 #include "arr.c"
 
 void printMaxtrics(float** a, int* size);
 void printMaxtrics2(float** a, int x, int y);
+void ReplaceMatrix(float** A, float** B, int* size);
+void freeMatrix(float** A, int* size);
 int* Vector2(int x, int y);
 float** createMatrix(int* size);
-float** createMatrix2(int x, int y);
+float** createMatrix2(int collumns, int rows);
 float** copyMatrix(float** A, int* size);
 float** MatrixMultiply(float** A, float** B, int* size1, int* size2);
 float** DecartMatrix(int size);
@@ -13,7 +15,21 @@ float** MatrixAddition(float** A, float** B, int* size);
 float** I1(int size, float time, int* swap);
 float** I2(int size, float time, int line);
 float** I3(int size, float time, int* line);
+void AutoFillMatrix(float** A, int* size);
 
+
+void AutoFillMatrix(float** A, int* size) {
+  for (int i = 0; i < size[0]; i++) for (int j = 0; j < size[1]; j++) A[i][j] = rand() % 10;
+}
+void freeMatrix(float** A, int* size) {
+  for (int i = 0; i < size[0]; i++) free(A[i]);
+  free(A);
+}
+void ReplaceMatrix(float** A, float** B, int* size) {
+  for (int i = 0; i < size[0]; i++)
+    for (int j = 0; j < size[1]; j++) A[i][j] = B[i][j];
+  freeMatrix(B, size);
+}
 void printMaxtrics(float** a, int* size) {
   float* max = malloc(size[0] * sizeof(float));
   for (int i = 1; i < size[0]; i++) max[i] = findMax(a[i], size[0]);
@@ -44,9 +60,9 @@ float** createMatrix(int* size) {
   for (int i = 0; i < size[0]; i++) A[i] = malloc(size[1] * sizeof(float));
   return A;
 }
-float** createMatrix2(int x, int y) {
-  float** A = malloc(x * sizeof(float*));
-  for (int i = 0; i < x; i++) A[i] = malloc(y * sizeof(float));
+float** createMatrix2(int collumns, int rows) {
+  float** A = malloc(collumns * sizeof(float*));
+  for (int i = 0; i < collumns; i++) A[i] = malloc(rows * sizeof(float));
   return A;
 }
 float** copyMatrix(float** A, int* size) {
@@ -61,7 +77,7 @@ float** MatrixMultiply(float** A, float** B, int* size1, int* size2) {
   for (int i = 0; i < size1[0];i++)
     for (int j = 0; j < size2[1];j++) {
       R[i][j] = 0;
-      for (int k = 0; k < size1[1];k++) R[i][j] += A[i][k] * B[k][j];
+      for (int k = 0; k < size1[1];k++) R[i][j] += (float)A[i][k] * (float)B[k][j];
     }
   return R;
 }

@@ -1,5 +1,17 @@
 #include "hea.h"
 
+int check(int arr[], int ite, int len);
+int check2(int arr[], int ite, int len);
+int swap(int* a, int* b);
+int* insertSort(int* a, int len);
+int* autoGenerateArr(int len);
+int* CreateArr(int len);
+void printArr(int* a, int len);
+float findMax(float* A, int size);
+float* findUnique(float* A, int size, float(*f)());
+
+
+
 int check(int arr[], int ite, int len) {
   for (int i = 0; i < len; i++) if (arr[i] == ite) return 1;
   return 0;
@@ -15,10 +27,10 @@ int swap(int* a, int* b) {
   int temp = *a;
   *a = *b; *b = temp;
 }
-int SortingInsert(int* a, int len) {
+static int SortingInsert(int* a, int len) {
   for (int i = len - 1;i >= 0;i--) {
     if (!(a[i] <= a[i - 1] && i - 1 >= 0)) break;
-    swap(&a[i], &a[i - 1]);
+    swap(a + i, a + i - 1);
   }
 }
 int* insertSort(int* a, int len) {
@@ -46,5 +58,5 @@ float findMax(float* A, int size) {
 }
 static float e(float a) { return a; }
 float* findUnique(float* A, int size, float(*f)()) {
-  if (f == NULL) f = e;
+  // if (f == NULL) f = e;
 }
