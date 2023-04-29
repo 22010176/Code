@@ -56,7 +56,7 @@ void printArrf(float* a, int len) { for (int i = 0; i < len; i++) printf("%lf ",
 float findAbsMax(float* A, int size) {
   float max = A[0];
   for (int i = 1; i < size; i++) {
-    float item = A[i] > 0 ? A[i] : -A[i];
+    int item = abs((int)A[i]);
     if (item > max) max = item;
   }
   return max;

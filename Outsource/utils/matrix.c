@@ -1,6 +1,7 @@
 #include "./hea.h"
 #include "arr.c"
 
+
 void printMaxtrics(float** a, int* size);
 void printMaxtrics2(float** a, int x, int y);
 void ReplaceMatrix(float** A, float** B, int* size);
@@ -16,6 +17,8 @@ float** I1(int size, float time, int* swap);
 float** I2(int size, float time, int line);
 float** I3(int size, float time, int* line);
 void AutoFillMatrix(float** A, int* size);
+float** ZeroSquare(int size);
+float** CutMatrix(float** A, int* size, int* pos);
 
 // int main() {
 //   int* size = Vector2(4, 5);
@@ -23,6 +26,22 @@ void AutoFillMatrix(float** A, int* size);
 //   AutoFillMatrix(A, size);
 //   printMaxtrics(A, size);
 // }
+float** CutMatrix(float** A, int* size, int* pos) {
+  float** B = createMatrix(Vector2(size[0] - 1, size[1] - 1));
+  for (int i = 0, c1 = 0; i < size[0]; i++) {
+    if (i == pos[0]) { c1++; continue; }
+    for (int j = 0, c2 = 0; j < size[1]; j++) {
+      if (j == pos[1]) { c2++; continue; }
+      B[i - c1][j - c1] = A[i][j];
+    }
+  }
+  return B;
+}
+float** ZeroSquare(int size) {
+  float** I = createMatrix2(size, size);
+  for (int i = 0; i < size; i++) for (int j = 0;j < size; j++) I[i][j] = 0;
+  return I;
+}
 void AutoFillMatrix(float** A, int* size) {
   for (int i = 0; i < size[0]; i++) for (int j = 0; j < size[1]; j++) A[i][j] = rand() % 10;
 }
@@ -35,21 +54,27 @@ void ReplaceMatrix(float** A, float** B, int* size) {
     for (int j = 0; j < size[1]; j++) A[i][j] = B[i][j];
   freeMatrix(B, size);
 }
-void printMaxtrics(float** a, int* size) {
+static int findIndent(float** A, int* size) {
   float* max = malloc(size[0] * sizeof(float));
-  for (int i = 1; i < size[0]; i++) max[i] = findAbsMax(a[i], size[0]);
-  int indent = findAbsMax(max, size[0]) + 4;
+  for (int i = 1; i < size[0]; i++) max[i] = findAbsMax(A[i], size[1]);
+  // for (int i = 0; i < size[0]; i++) {
+  //   for (int j = 0; j < size[1]; j++) printf("|%.2lf", A[i][j]);
+  //   printf("\n");
+  // }
+  printArrf(max, size[0]);
+  int result = (int)ceil(log10(findAbsMax(max, size[0]) + 0.1));
 
+  return result;
+}
+void printMaxtrics(float** A, int* size) {
+  int indent = findIndent(A, size);
   for (int i = 0; i < size[0]; i++) {
-    for (int j = 0; j < size[1]; j++) printf("|%*.2lf", indent, a[i][j]);
+    for (int j = 0; j < size[1]; j++) printf("|%*.2lf", indent, A[i][j]);
     printf("\n");
   }
 }
 void printMaxtrics2(float** a, int x, int y) {
-  float* max = malloc(x * sizeof(float));
-  for (int i = 0; i < x; i++) max[i] = findAbsMax(a[i], y);
-  int indent = (int)abs(ceil(log10f(findAbsMax(max, x) * 100))) + 4;
-
+  int indent = findIndent(a, Vector2(x, y));
   for (int i = 0; i < x; i++) {
     for (int j = 0; j < y; j++) printf("|%*.2lf", indent, a[i][j]);
     printf("\n");
