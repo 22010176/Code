@@ -8,12 +8,49 @@ void printMaxtric(float** A, int* size);
 float* Vector2f(float x, float y);
 int* Vector2d(int x, int y);
 void freeMatrix(float** A, int* size);
-void ReplaceMatrix(float** A, float** B, int* size);
+float** ReplaceMatrix(float** Des, float** S, int* size);
 float** copyMatrix(float** A, int* size);
-void FillMatrix(float** A, int* size, float (*f)(int, int));
+float** FillMatrix(float** A, int* size, float (*func)(int, int));
 float** MatrixMultiply(float** A, float** B, int* size1, int* size2);
 float** MatrixAddition(float** A, float** B, int* size);
 float Descartes(int i, int j);
+float** DescartesMatrix(int size);
+float** I1(int size, int* swap);
+float** I2(int size, float time, int line);
+float** I3(int size, float time, int* line);
+float** TriangularMatrix(float** A, int* size);
+
+#if __INCLUDE_LEVEL__ == 0
+float A_(int i, int j) { return i + j; }
+float B_(int i, int j) { return (i + 1) * (j + 1); }
+int main() {
+
+  int* size1 = Vector2d(4, 5), * size2 = Vector2d(5, 4);
+  float** A = createMatrix(size1);
+  float** B = createMatrix(size2);
+  float** C = createMatrix(size1);
+  FillMatrix(A, size1, A_);
+  FillMatrix(B, size2, B_);
+  FillMatrix(C, size1, B_);
+
+  printMaxtric(A, size1);
+  printMaxtric(B, size2);
+
+  printMaxtric(MatrixAddition(A, C, size1), size1);
+  printMaxtric(MatrixMultiply(A, B, size1, size2), Vector2d(size1[0], size2[1]));
+
+  printMaxtric(ReplaceMatrix(B, FillMatrix(createMatrix(size2), size2, A_), size2), size2);
+  printMaxtric(ReplaceMatrix(A, FillMatrix(createMatrix(size1), size1, NULL), size1), size1);
+
+  printf("Free\n");
+  freeMatrix(A, size1);
+  freeMatrix(B, size2);
+  freeMatrix(C, size1);
+
+  printMaxtric(A, size1);
+  printMaxtric(B, size2);
+}
+#endif
 
 float Descartes(int i, int j) { return i == j; }
 float** MatrixMultiply(float** A, float** B, int* size1, int* size2) {
@@ -33,10 +70,11 @@ float** MatrixAddition(float** A, float** B, int* size) {
   return C;
 }
 static float _(int _1, int _2) { return rand() % 100; }
-void FillMatrix(float** A, int* size, float(*f)(int, int)) {
-  if (f == NULL) f = _;
+float** FillMatrix(float** A, int* size, float(*func)(int, int)) {
+  if (func == NULL) func = _;
   for (int i = 0; i < size[0]; i++)
-    for (int j = 0; j < size[1]; j++) A[i][j] = f(i, j);
+    for (int j = 0; j < size[1]; j++) A[i][j] = func(i, j);
+  return A;
 }
 float** copyMatrix(float** A, int* size) {
   float** B = createMatrix(size);
@@ -48,10 +86,11 @@ void freeMatrix(float** A, int* size) {
   for (int i = 0; i < size[0]; i++) free(A[i]);
   free(A);
 }
-void ReplaceMatrix(float** Des, float** S, int* size) {
+float** ReplaceMatrix(float** Des, float** S, int* size) {
   for (int i = 0; i < size[0]; i++)
     for (int j = 0; j < size[1]; j++) Des[i][j] = S[i][j];
   freeMatrix(S, size);
+  return Des;
 }
 float** createMatrix(int* size) {
   float** A = malloc(size[0] * sizeof(float*));
@@ -66,16 +105,17 @@ float** createMatrix2(int collumns, int rows) {
 static int findIndent(float** A, int* size) {
   float* max = malloc(size[0] * sizeof(float));
   for (int i = 1; i < size[0]; i++) max[i] = A[i][findAbsMax(A[i], size[1])];
-  int result = ceil(log10(max[findAbsMax(max, size[0])]));
-  return result + 4;
+  int result = ceil(log10(max[findAbsMax(max, size[0])])) + 4;
+  if (result < 0) result = 10;
+  return result;
 }
 void printMaxtric(float** A, int* size) {
   int indent = findIndent(A, size);
-  if (indent < 0) indent = 15;
   for (int i = 0; i < size[0]; i++) {
     for (int j = 0; j < size[1]; j++) printf("|%*.2lf", indent, A[i][j]);
     printf("\n");
   }
+  printf("\n");
 }
 float* Vector2f(float x, float y) {
   float* vec = malloc(2 * sizeof(float));
@@ -86,4 +126,46 @@ int* Vector2d(int x, int y) {
   int* vec = malloc(2 * sizeof(int));
   vec[0] = x; vec[1] = y;
   return vec;
+}
+float** DescartesMatrix(int size) {
+  int* sizeI = Vector2d(size, size);
+  return FillMatrix(createMatrix(sizeI), sizeI, Descartes);
+}
+float** I1(int size, int* swap) {
+  float** I = DescartesMatrix(size);
+  I[swap[0]][swap[0]] = 0; I[swap[1]][swap[1]] = 0;
+  I[swap[0]][swap[1]] = 1; I[swap[1]][swap[0]] = 1;
+  return I;
+}
+float** I2(int size, float time, int line) {
+  float** I = DescartesMatrix(size);
+  I[line][line] = time;
+  return I;
+}
+float** I3(int size, float time, int* line) {
+  float** I = DescartesMatrix(size);
+  I[line[0]][line[1]] = time;
+  return I;
+}
+float** TriangularMatrix(float** A, int* size) {
+  int* sizeI = Vector2d(size[0], size[0]), min = size[0] > size[1] ? size[1] : size[0];
+  float** B = copyMatrix(A, size), ** I = DescartesMatrix(size[0]);
+  for (int i = 0; i < min;i++) {
+    float** I_ = copyMatrix(I, sizeI);
+    if (B[i][i] == 0) {
+      for (int j = i + 1; i < size[0];j++) {
+        if (B[i][j] == 0) continue;
+        float** I_2 = I1(size[0], Vector2d(j, i));
+        ReplaceMatrix(B, MatrixMultiply(I_2, B, sizeI, size), size);
+        freeMatrix(I_2, sizeI);
+        break;
+      }
+      continue;
+    }
+    for (int j = i + 1; j < size[0];j++) I_[j][i] = -B[j][i] / B[i][i];
+    ReplaceMatrix(B, MatrixMultiply(I_, B, sizeI, size), size);
+    freeMatrix(I_, sizeI);
+  }
+  freeMatrix(I, sizeI);
+  return B;
 }
