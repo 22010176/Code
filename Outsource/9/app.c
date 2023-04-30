@@ -1,5 +1,5 @@
 #include "../utils/hea.h"
-#include "../utils/matrix.c"
+#include "../utils/matrix/matrixf.c"
 
 
 float sum(float* A, int size) {

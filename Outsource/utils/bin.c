@@ -1,7 +1,9 @@
-#include <stdio.h>
-#include <math.h>
-#include <string.h>
-#include <stdlib.h>
+#include "hea.h"
+
+char* DtoB(int a);
+char* BtoG(char in[]);
+char* fill(int len, char buff, char in[]);
+
 static char Bin(int i) { return i ? '1' : '0'; }
 char* DtoB(int a) {
   int b = a, mod, i = (int)floor((a ? log2(a) : 0) + 1), d;

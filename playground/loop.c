@@ -1,15 +1,18 @@
 #include <stdio.h>
-
+#include <stdarg.h>
+#include <stdlib.h>
+float add(float a, float b) {
+  return a + b;
+}
+float b(int* a, float (*A)(float, float)) {
+  float c = A(a[0], a[1]);
+  printf("%f", c);
+  return 0;
+}
+// float (*A)(float, float);
 int main() {
-  int i = 0;
-  for (i = 0; i < 5;i++) printf("%d ", i);
-  printf("\n");
-  // In ra man hinh 0 1 2 3 4 
-  //Code tren tuong duong voi
-  printf("%d ", 0);
-  printf("%d ", 1);
-  printf("%d ", 2);
-  printf("%d ", 3);
-  printf("%d ", 4);
-
+  // A = add;
+  int* __a = malloc(2 * sizeof(int));
+  __a[0] = 9; __a[1] = 4;
+  b(__a, add);
 }
