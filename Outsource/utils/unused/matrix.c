@@ -1,5 +1,5 @@
 #include "../hea.h"
-#include "../array/arrf.c"
+#include "./arr.c"
 
 void printMaxtric(float** a, int* size);
 void printMaxtrics2(float** a, int x, int y);

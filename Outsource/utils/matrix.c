@@ -19,37 +19,15 @@ float** I1(int size, int* swap);
 float** I2(int size, float time, int line);
 float** I3(int size, float time, int* line);
 float** TriangularMatrix(float** A, int* size);
+float Determinant(float** A, int size);
+float** Transpose(float** A, int* size);
+int CompareMatrix(float** A, float** B, int* size);
+float** ScalarMultiply(float** A, int* size, float scale);
 
 #if __INCLUDE_LEVEL__ == 0
 float A_(int i, int j) { return i + j; }
 float B_(int i, int j) { return (i + 1) * (j + 1); }
-int main() {
-
-  int* size1 = Vector2d(4, 5), * size2 = Vector2d(5, 4);
-  float** A = createMatrix(size1);
-  float** B = createMatrix(size2);
-  float** C = createMatrix(size1);
-  FillMatrix(A, size1, A_);
-  FillMatrix(B, size2, B_);
-  FillMatrix(C, size1, B_);
-
-  printMaxtric(A, size1);
-  printMaxtric(B, size2);
-
-  printMaxtric(MatrixAddition(A, C, size1), size1);
-  printMaxtric(MatrixMultiply(A, B, size1, size2), Vector2d(size1[0], size2[1]));
-
-  printMaxtric(ReplaceMatrix(B, FillMatrix(createMatrix(size2), size2, A_), size2), size2);
-  printMaxtric(ReplaceMatrix(A, FillMatrix(createMatrix(size1), size1, NULL), size1), size1);
-
-  printf("Free\n");
-  freeMatrix(A, size1);
-  freeMatrix(B, size2);
-  freeMatrix(C, size1);
-
-  printMaxtric(A, size1);
-  printMaxtric(B, size2);
-}
+int main() {}
 #endif
 
 float Descartes(int i, int j) { return i == j; }
@@ -168,4 +146,26 @@ float** TriangularMatrix(float** A, int* size) {
   }
   freeMatrix(I, sizeI);
   return B;
+}
+float Determinant(float** A, int size) {
+  int* sizeB = Vector2d(size, size);
+  float** B = TriangularMatrix(A, sizeB);
+  float res = 1;
+  for (int i = 0; i < size;i++) res *= B[i][i];
+  freeMatrix(B, sizeB); free(sizeB);
+  return res;
+}
+float** ScalarMultiply(float** A, int* size, float scale) {
+  float Func(int  i, int j) { return A[i][j] * scale; }
+  return FillMatrix(createMatrix(size), size, Func);
+}
+float** Transpose(float** A, int* size) {
+  float F(int i, int j) { return A[j][i]; }
+  int* sizeT = Vector2d(size[1], size[0]);
+  return FillMatrix(createMatrix(sizeT), sizeT, F);
+}
+int CompareMatrix(float** A, float** B, int* size) {
+  for (int i = 0; i < size[0]; i++)
+    for (int j = 0; j < size[1]; j++) if (A[i][j] != B[i][j]) return 0;
+  return 1;
 }
