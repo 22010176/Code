@@ -2,12 +2,13 @@
 
 #define _CorS  "\033[1;"
 #define _CorE "\033[1;0m"
-#define DarkScale "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. ";
+#define DarkScale "@MBHENR#KWXDFPQASUZbdehx*8Gm&04LOVYkpq5Tagns69owz$CIu23Jcfry%1v7l+it[]{}?j|()=~!-/<>\"^_';,:`. ";
 //90 - 97, 100 - 107
 
-int getNumLength(int x);
+#define CreateString(len) calloc(len + 1, sizeof(char));
+#define GetNumLen(x) (int) log10(abs(x ? x : 1)) + 1;
+
 char* numTostr(int x);
-char* CreateString(int len);
 char* ConcatString(int  n, ...);
 char* StrColor(int color, char* str);
 
@@ -16,7 +17,6 @@ int main() {
 
 }
 #endif
-
 
 char* ConcatString(int n, ...) {
   char* A = CreateString(0);
@@ -29,10 +29,8 @@ char* ConcatString(int n, ...) {
   return A;
 }
 char* StrColor(int color, char* str) { return ConcatString(5, _CorS, numTostr(color), "m", str, _CorE); }
-char* CreateString(int len) { return calloc(len, sizeof(char)); }
-int getNumLength(int x) { return (int)log10(abs(x ? x : 1)) + 1; }
 char* numTostr(int x) {
-  int val = abs(x), len = getNumLength(x);
+  int val = abs(x), len = GetNumLen(x);
   char* b = malloc((len + 1) * sizeof(char));
   b[len] = '\0';
   for (int i = 0; i < len; i++) {

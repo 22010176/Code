@@ -1,28 +1,41 @@
 #include <stdio.h>
 
-void Max(int x) {
-  int tg, i = 0, max;
-  scanf("%d", &max);
-  for (; i < max - 1;i++) {
-    scanf("%d", &tg);
-    if (tg > max) max = tg;
-  }
-  return max;
+enum Op {
+  ADD = '+',
+  SUB = '-',
+};
+
+
+/* add: add a and b, return result */
+int add(int a, int b) {
+  return a + b;
 }
-void Tong(int k) {
-  int tg, tong = 0, i = 0;
-  for (;i < k;i++) {
-    scanf("%d", &tg);
-    tong += tg;
-  }
-  return tong;
+
+/* sub: subtract b from a, return result */
+int sub(int a, int b) {
+  return a - b;
 }
-void Dem(int m) {
-  int X, i = 0, c, tg;
-  scanf("%d", &X);
-  for (; i < m; i++) {
-    scanf("%d", &tg);
-    if (tg == X) c++;
+
+/* getmath: return the appropriate math function */
+int (*getmath(enum Op op))(int, int) {
+  switch (op) {
+  case ADD:
+    return &add;
+  case SUB:
+    return &sub;
+  default:
+    return NULL;
   }
-  return c;
+}
+
+int main() {
+  int a, b, c;
+  int (*fp)(int, int);
+
+  fp = getmath(ADD);
+
+  a = 1, b = 2;
+  c = (*fp)(a, b);
+  printf("%d + %d = %d\n", a, b, c);
+  return 0;
 }

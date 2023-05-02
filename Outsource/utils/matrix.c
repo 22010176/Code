@@ -50,6 +50,7 @@ float** MatrixAddition(float** A, float** B, int* size) {
 static float _(int _1, int _2) { return rand() % 100; }
 float** FillMatrix(float** A, int* size, float(*func)(int, int)) {
   if (func == NULL) func = _;
+  // printf("%f", func(4, 5));
   for (int i = 0; i < size[0]; i++)
     for (int j = 0; j < size[1]; j++) A[i][j] = func(i, j);
   return A;
