@@ -2,6 +2,13 @@
 #include "../utils/str.c"
 #include "../utils/matrix.c"
 
+struct Vector2 {
+  float x;  float y;
+  float(*a)();
+  struct Vector2* ptr;
+};
+
+
 #define SIZE 40
 
 #define REV Vector2d(5,2)
@@ -15,9 +22,28 @@ char** CreateField(int* size);
 int** Process(int* size, int n, ...);
 int** Render(int** n, int* size);
 
+float func(float (*A)(float)) {
 
+}
+float F(int n, ...) {
+  va_list prt;
+  va_start(prt, n);
+  for (int i = 0; i < n; i++) {
+    struct Vector2 c = va_arg(prt, struct Vector2);
+    printf("%p ", c.a);
+    printf("%d ", c.x);
+    printf("%d ", c.y);
+    // printf("%d ", a);
+  }
+}
+float A() {
+
+}
 int main() {
-
+  struct Vector2 a = { 1,2,A }, b = { 4,5,A };
+  a.ptr = &a;
+  b.ptr = &b;
+  F(2, a, b);
 }
 
 float dF(float(*func)(float x), float x0) {
