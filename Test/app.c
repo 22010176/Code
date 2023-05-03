@@ -3,4 +3,5 @@
 #include <setjmp.h>
 
 int main() {
+    printf("%d", 89);
 }
