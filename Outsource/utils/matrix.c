@@ -10,7 +10,11 @@ int* Vector2d(int x, int y);
 void freeMatrix(float** A, int* size);
 float** ReplaceMatrix(float** Des, float** S, int* size);
 float** copyMatrix(float** A, int* size);
+
 float** FillMatrix(float** A, int* size, float (*func)(int, int));
+float** FillMatrixFunc1(float** A, int* size, float(*func)(int i));
+float** FillMatrixFunc2(float** A, int* size, float(*func)(int i));
+
 float** MatrixMultiply(float** A, float** B, int* size1, int* size2);
 float** MatrixAddition(float** A, float** B, int* size);
 float Descartes(int i, int j);
@@ -23,6 +27,7 @@ float Determinant(float** A, int size);
 float** Transpose(float** A, int* size);
 int CompareMatrix(float** A, float** B, int* size);
 float** ScalarMultiply(float** A, int* size, float scale);
+int* Vector3d(int x, int y, int z);
 
 #if __INCLUDE_LEVEL__ == 0
 float A_(int i, int j) { return i + j; }
@@ -53,6 +58,20 @@ float** FillMatrix(float** A, int* size, float(*func)(int, int)) {
   // printf("%f", func(4, 5));
   for (int i = 0; i < size[0]; i++)
     for (int j = 0; j < size[1]; j++) A[i][j] = func(i, j);
+  return A;
+}
+float** FillMatrixFunc1(float** A, int* size, float(*func)(int i)) {
+  for (int i = 0; i < size[1]; i++) {
+    int res = round(func(i));
+    for (int j = 0; j < size[0]; j++) A[j][i] = (size[0] - res) == j;
+  }
+  return A;
+}
+float** FillMatrixFunc2(float** A, int* size, float(*func)(int i)) {
+  for (int i = 0; i < size[0]; i++) {
+    int res = round(func(i));
+    for (int j = 0; j < size[1]; j++) A[i][j] = res == j;
+  }
   return A;
 }
 float** copyMatrix(float** A, int* size) {
@@ -104,6 +123,11 @@ float* Vector2f(float x, float y) {
 int* Vector2d(int x, int y) {
   int* vec = malloc(2 * sizeof(int));
   vec[0] = x; vec[1] = y;
+  return vec;
+}
+int* Vector3d(int x, int y, int z) {
+  int* vec = malloc(3 * sizeof(int));
+  vec[0] = x; vec[1] = y; vec[2] = z;
   return vec;
 }
 float** DescartesMatrix(int size) {
