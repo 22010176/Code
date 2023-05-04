@@ -27,9 +27,9 @@ int main() {
   float** Ox_ = FillMatrix(createMatrix(ref), ref, Ox);
   float** Oy_ = FillMatrix(createMatrix(ref), ref, Oy);
   // float** scene2 = FillMatrixFunc1(createMatrix(ref), ref, Test3);
-  // float** scene4 = FillMatrixFunc2(createMatrix(ref), ref, Test4);
+  float** scene4 = FillMatrixFunc2(createMatrix(ref), ref, Test4);
 
-  Render(PreProcess(ref, 3, Ox_, Oy_, scene1), ref);
+  Render(PreProcess(ref, 4, Ox_, Oy_, scene1,scene4), ref);
 }
 float Ox(int i, int j) {
   return i == ref[0] - 2;
