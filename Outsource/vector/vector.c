@@ -12,7 +12,7 @@ typedef struct {
     size_t count;
     size_t capacity;
 } Vector
-
+// https://alexandra-zaharia.github.io/posts/implementing-a-vector-in-c/
 
 
 Vector *CreateVector() {
