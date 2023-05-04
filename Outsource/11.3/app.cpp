@@ -7,14 +7,17 @@ typedef struct {
 
 int** CreateMat(Vector2 *size);
 int main(){
+    vector <int> A;
+    for (int i  =0 ; i<= 90;i++) {
+        A.push_back(i);
+    }
+    for (int i = 0; i < A.size();i++) {
+        cout << A[i] << " ";
+        if ((i+1) % 15 == 0) cout << endl;
+    }
     // Vector2 size = {5,6};
     // int ** A = CreateMat(&size);
     
-    auto A = (float*) malloc(9 * sizeof(float*));
-    for (int i =0 ;i < 9; i++) {
-        A[i] = i;
-        cout << A[i] <<" ";
-    }
     
 }
 int** FillMat(int *size,int (*A)(int i,int j,int n, ...),...){
