@@ -1,16 +1,14 @@
 #include <stdio.h>
 #include <math.h>
 
-
-int Tong(int x, int n) {
-  int tong = 0;
-  for (int i = 1; i <= n;i++) tong += (int)abs(pow(x, 2 * i));
-  return tong;
-}
-
 int main() {
-  int A = Tong(2, 9);
-  printf("Tong la: %d", A);
+  float A[100];
+  for (int i = 0; i < 100;i++) {
+    *(A + i) = i; // A[i] = i
+  }
+  for (int i = 0; i < 100;i++) {
+    printf("%*.2f %s", 5, *(A + i), (i + 1) % 20 == 0 ? "\n" : "");
+  }
 }
 
 

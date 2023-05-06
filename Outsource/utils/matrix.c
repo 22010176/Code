@@ -186,9 +186,9 @@ float** ScalarMultiply(float** A, int* size, float scale) {
 }
 float** Transpose(float** A, int* size) {
   float F(int i, int j) { return A[j][i]; }
-  int* sizeT = Vector2d(size[1], size[0]);
-  float** R = FillMatrix(createMatrix(sizeT), sizeT, F);
-  free(sizeT);
+  int* size = Vector2d(size[1], size[0]);
+  float** R = FillMatrix(createMatrix(size), size, F);
+  free(size);
   return R;
 }
 int CompareMatrix(float** A, float** B, int* size) {
