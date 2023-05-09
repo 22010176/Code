@@ -23,7 +23,7 @@ float Bai2(int n) {
 }
 float Bai3(int n) {
   float sum = 0; int i;
-  for (i = 1; i <= n;i++) sum += 1 / i;
+  for (i = 1; i <= n;i++) sum += 1.0 / i;
   return sum;
 }
 float Bai4(int n) {
@@ -54,7 +54,7 @@ float Bai8(int n) {
 float Bai142(float n[], int len) {
   float min = n[0];
   for (int i = 1; i < len;i++)
-    if (n[i] < min) min = n[0];
+    if (n[i] < min) min = n[i];
   return min;
 }
 int Bai143(int n[], int len) {
