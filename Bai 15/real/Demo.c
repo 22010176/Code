@@ -89,6 +89,14 @@ char Test(int a) {
   default: return a;
   }
 }
+char* ShiftChar(char* A, int num) {
+  char* C = malloc((strlen(A) + 1) * sizeof(char));
+  for (int i = 0; i < strlen(A);i++) {
+    C[i] = (A[i] + num - 32) % 95 + 32;
+  }
+  C[strlen(A)] = '\0';
+  return C;
+}
 int main() {
   // 1
   // char* ten = inputChar(LEN);
@@ -104,5 +112,5 @@ int main() {
   // 6
   char* A = StripSpace(ten);
   printf("%s\n", A);
-  printf("%s\n", StrEncode(StrShift(format(A), 10), Test));
+  printf("%s\n", ShiftChar(StrShift(format(A), 0), 3));
 }
