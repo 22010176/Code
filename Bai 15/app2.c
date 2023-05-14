@@ -1,16 +1,11 @@
-#include <string.h>
-#include <ctype.h>
 #include <stdio.h>
-#include <conio.h>
-
+#include <math.h>
 int main() {
-  char name[30] = "asfd    afaasdf    asdfasfd";
-  // scanf("%s", name);
-  fflush(stdin);
-  printf("%s\n", name);
-  strupr(name);
-  printf("%s\n", name);
-  char a[30], j = 0;
-  // strrchr(name, ' ');
-  printf("%s", strrchr(name, ' ') + 1);
+  int i, j;
+  for (i = 20;0 < i;i--) {
+    for (j = 20;0 < j;j--) {
+      printf("\n%d x %d = %d ", i, j, i * j);
+    }
+    printf("____________");
+  }
 }
