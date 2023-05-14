@@ -51,23 +51,48 @@ char* format(char* A) {
   int len = strlen(A);
   int lenC = len;
   char* C = malloc((len + 1) * sizeof(char));
-  for (int i = 0, j = 0; i < len;i++) {
-    if (isspace(A[i]) && j == 1) {
-      printf("3.%c %d %d\n", A[i], i, isspace(A[i]));
+  for (int i = 0, c = 0, j = 0; i < len;i++) {
+    if (isspace(A[i])) {
+      if (c == 1) {
+        lenC--;
+        continue;
+      }
+      c = 1;
+      C[j++] = ' ';
       continue;
     }
-    if (isspace(A[i]) && j == 0) {
-      j = 1;
-      printf("%d %d ", i, isspace(A[i]));
-    }
+    C[j++] = isspace(C[j - 1]) || j == 0 ? toupper(A[i]) : A[i];
+    c = 0;
   }
   C[lenC] = '\0';
-  // printf(C);
+  return C;
+}
+char* StrShift(char* A, int num) {
+  int len = strlen(A);
+  char* C = malloc((len + 1) * sizeof(char));
+  C[len] = '\0';
+  for (int i = 0; i < len;i++) {
+    C[(i + num) % len] = A[i];
+  }
+  return C;
+}
+
+char* StrEncode(char* A, char (*func)(int)) {
+  char* C = malloc((strlen(A) + 1) * sizeof(char));
+  for (int i = 0; i < strlen(A);i++) C[i] = func(A[i]);
+  C[strlen(A)] = '\0';
+  return C;
+}
+char Test(int a) {
+  switch (a) {
+  case ' ': return 'B';
+  default: return a;
+  }
 }
 int main() {
   // 1
   // char* ten = inputChar(LEN);
-  char* ten = "     Do     Duc     Minh         ";
+  char* ten = "     do     duc     minh    adsf             asd      ";
   // 3
   // printf("%s\n", ten);
   // 4
@@ -79,5 +104,5 @@ int main() {
   // 6
   char* A = StripSpace(ten);
   printf("%s\n", A);
-  format(A);
+  printf("%s\n", StrEncode(StrShift(format(A), 10), Test));
 }
