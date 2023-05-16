@@ -112,5 +112,5 @@ int main() {
   // 6
   char* A = StripSpace(ten);
   printf("%s\n", A);
-  printf("%s\n", ShiftChar(StrShift(format(A), 0), 3));
+  printf("%s\n", format(A));
 }
