@@ -20,27 +20,49 @@ void nhapN(int* n) {
   fflush(stdin);
 }
 char** split(char* A, int len, char B) {
-  char* b = strstr(A, ' ');
+  char* b = strstr(A, 32);
   printf(b);
+}
+void swap(char* A, char* B) {
+  printf("%s\n", A);
+  printf("%s\n", B);
+}
+int _A(char* A, char* B) { return 1; }
+char** SortingString(char** A, int len, int (*compare)(char*, char*)) {
+  if (compare == NULL) compare = _A;
+  for (int i = 0; i < len - 1;i++) {
+    // printf("%d. %s \n", i + 1, A[i]);
+    swap(*(A + i), *(A + i + 1));
+  }
 }
 int main() {
   // 1
-  char sinhVien[50][30];
-  int i, n;
-  // char a[] = "ASDFASFasfd";
-  strcpy(sinhVien[0], "Do Duc Minh");
-  strcpy(sinhVien[1], "Do   aafds Duc Ainh");
-  strcpy(sinhVien[2], "Do asdfasd fDuc Aasdasffinh");
-  strcpy(sinhVien[3], "D  o Du  adfadsfc Ainh");
-  // 2
-  nhapN(&n);
-  for (i = 0; i < n;i++) {
-    printf("\nNhap ten sinh vien %d: ", i + 1);
-    gets(sinhVien[i]);
-    fflush(stdin);
+  char** sinhVien = malloc(50 * sizeof(char*));
+  for (int i = 0; i < 50; i++) {
+    sinhVien[i] = calloc(30 + 1, sizeof(char));
+    sinhVien[i][30] = '\0';
   }
+
+  int i, n = 8;
+  // char a[] = "ASDFASFasfd";
+  strcpy(sinhVien[0], "Nguyen Thi Ngoc Anh");
+  strcpy(sinhVien[1], "Dinh Thi Ngoc Anh");
+  strcpy(sinhVien[2], "Nguyen Tung Lam");
+  strcpy(sinhVien[3], "Nguyen Tung Lam An");
+  strcpy(sinhVien[4], "Doan Vu Mai Anh");
+  strcpy(sinhVien[5], "Doan Vu Mai An");
+  strcpy(sinhVien[6], "Doan Vu Mai E");
+  strcpy(sinhVien[7], "Doan Vu Ed Anh");
+  SortingString((char**)sinhVien, n, NULL);
+  // 2
+  // nhapN(&n);
+  // for (i = 0; i < n;i++) {
+  //   printf("\nNhap ten sinh vien %d: ", i + 1);
+  //   gets(sinhVien[i]);
+  //   fflush(stdin);
+  // }
   // 3
-  for (i = 0; i < n;i++) printf("%d. %s\n", i + 1, format(StripSpace(sinhVien[i])));
+  // for (i = 0; i < n;i++) printf("%d. %s\n", i + 1, format(StripSpace(sinhVien[i])));
   // 4
 
 }
