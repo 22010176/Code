@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <setjmp.h>
-int (*Func2(int *x))(int, int)
-{
+#include <string.h>
+int (*Func2(int* x))(int, int) {
     int a = *x;
     int A(int i, int j)
     {
@@ -17,10 +17,8 @@ int b(int (*A)(int, int))
     printf("%d\n", A(8, 3));
 }
 // int Func3
-int main()
-{
-    int *a = malloc(sizeof(int));
-    *a = 9;
-    int (*ed)(int, int) = Func2(a);
-    b(ed);
+int main() {
+    char a[] = "a";
+    char b[] = "b";
+    printf("%d", strcmp(a, b));
 }

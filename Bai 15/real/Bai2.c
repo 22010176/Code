@@ -19,21 +19,40 @@ void nhapN(int* n) {
   scanf("%d", n);
   fflush(stdin);
 }
-char** split(char* A, int len, char B) {
-  char* b = strstr(A, 32);
-  printf(b);
-}
 void swap(char* A, char* B) {
-  printf("%s\n", A);
-  printf("%s\n", B);
+  char A_[strlen(A)];
+  strcpy(A_, A);  strcpy(A, B);  strcpy(B, A_);
 }
 int _A(char* A, char* B) { return 1; }
 char** SortingString(char** A, int len, int (*compare)(char*, char*)) {
   if (compare == NULL) compare = _A;
-  for (int i = 0; i < len - 1;i++) {
-    // printf("%d. %s \n", i + 1, A[i]);
-    swap(*(A + i), *(A + i + 1));
+  for (int i = 0; i < len;i++) {
+    // printf("h");
+    for (int j = 0; j < len;j++) {
+      int res = compare(A[j], A[j + 1]);
+      if (res == 1) swap(A[j], A[j + 1]);
+      // printf("%s %s|%d\n", A[j], A[j + 1], res);
+    }
   }
+}
+
+int com(char* A, char* B) {
+  int lenA = 0, lenB = 0;
+  char* a_ = malloc((strlen(A) + 1) * sizeof(char)), * b_ = malloc((strlen(B) + 1) * sizeof(char));
+  strcpy(a_, A); strcpy(b_, B);
+  do {
+    char* A_ = strrchr(a_, ' ');
+    A_ = A_ ? A_ : a_;
+
+    char* B_ = strrchr(b_, ' ');
+    B_ = B_ ? B_ : b_;
+
+    if (!(strlen(a_) && strlen(b_))) return 0;
+    if (strcmp(A_, B_)) return strcmp(A_, B_);
+
+    a_[strlen(a_) - strlen(A_)] = '\0';
+    b_[strlen(b_) - strlen(B_)] = '\0';
+  } while (1);
 }
 int main() {
   // 1
@@ -45,15 +64,14 @@ int main() {
 
   int i, n = 8;
   // char a[] = "ASDFASFasfd";
-  strcpy(sinhVien[0], "Nguyen Thi Ngoc Anh");
-  strcpy(sinhVien[1], "Dinh Thi Ngoc Anh");
-  strcpy(sinhVien[2], "Nguyen Tung Lam");
-  strcpy(sinhVien[3], "Nguyen Tung Lam An");
-  strcpy(sinhVien[4], "Doan Vu Mai Anh");
-  strcpy(sinhVien[5], "Doan Vu Mai An");
-  strcpy(sinhVien[6], "Doan Vu Mai E");
-  strcpy(sinhVien[7], "Doan Vu Ed Anh");
-  SortingString((char**)sinhVien, n, NULL);
+  strcpy(sinhVien[0], "Do Duc Nam");
+  strcpy(sinhVien[1], "Do Duc Nam");
+  strcpy(sinhVien[6], "Do Duc Nam");
+  strcpy(sinhVien[2], "Dinh Thi Ngoc Anh");
+  strcpy(sinhVien[3], "Do Duc Minh");
+  strcpy(sinhVien[4], "Do Duc Anh");
+  strcpy(sinhVien[7], "Do Duc A");
+  strcpy(sinhVien[5], "Do Duc Minh");
   // 2
   // nhapN(&n);
   // for (i = 0; i < n;i++) {
@@ -62,7 +80,11 @@ int main() {
   //   fflush(stdin);
   // }
   // 3
-  // for (i = 0; i < n;i++) printf("%d. %s\n", i + 1, format(StripSpace(sinhVien[i])));
+  SortingString(sinhVien, n, com);
+  for (i = 0; i < n;i++) {
+    strcpy(sinhVien[i], format(StripSpace(sinhVien[i])));
+    printf("%d: %s\n", i + 1, sinhVien[i]);
+  }
   // 4
 
 }
@@ -98,7 +120,7 @@ char* StripSpace(char* A) {
   int len = strlen(A), lenC = 0;;
   char* B = malloc((len + 1) * sizeof(char));
   strcpy(B, A);
-  for (int i = len - 1;i >= 0;i--) if (!isspace(B[i - 1])) {
+  if (isspace(B[len - 1])) for (int i = len - 1;i >= 0;i--) if (!isspace(B[i - 1])) {
     B[i] = '\0';
     break;
   }

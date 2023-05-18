@@ -12,8 +12,8 @@ float** ReplaceMatrix(float** Des, float** S, int* size);
 float** copyMatrix(float** A, int* size);
 
 float** FillMatrix(float** A, int* size, float (*func)(int, int));
-float** FillMatrixFunc1(float** A, int* size, float(*func)(int i));
-float** FillMatrixFunc2(float** A, int* size, float(*func)(int i));
+float** FillMatrixFunc1(float** A, int* size, float(*func)(int));
+float** FillMatrixFunc2(float** A, int* size, float(*func)(int));
 
 float** MatrixMultiply(float** A, float** B, int* size1, int* size2);
 float** MatrixAddition(float** A, float** B, int* size);

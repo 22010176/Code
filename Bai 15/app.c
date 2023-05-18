@@ -23,5 +23,5 @@ int RemovingSpace(char* A) {
 }
 int main() {
   char A[] = "123123123432      32423412    123    123";
-  RemovingSpace(A);
+  printf(strrchr(A, ' '));
 }
