@@ -27,10 +27,9 @@ int _A(char* A, char* B) { return 1; }
 char** SortingString(char** A, int len, int (*compare)(char*, char*)) {
   if (compare == NULL) compare = _A;
   for (int i = 0; i < len;i++) {
-    for (int j = 0; j < len;j++) {
+    for (int j = 0; j < len - i;j++) {
       int res = compare(A[j], A[j + 1]);
       if (res == 1) swap(A[j], A[j + 1]);
-      // printf("%s %s|%d\n", A[j], A[j + 1], res);
     }
   }
 }
