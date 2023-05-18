@@ -13,7 +13,6 @@ char* StripSpace(char* A);
 char* format(char* A);
 char* StrShift(char* A, int num);
 
-
 void nhapN(int* n) {
   printf("\nNhap so Nguyen: ");
   scanf("%d", n);
@@ -26,12 +25,8 @@ void swap(char* A, char* B) {
 int _A(char* A, char* B) { return 1; }
 char** SortingString(char** A, int len, int (*compare)(char*, char*)) {
   if (compare == NULL) compare = _A;
-  for (int i = 0; i < len;i++) {
-    for (int j = 0; j < len - i;j++) {
-      int res = compare(A[j], A[j + 1]);
-      if (res == 1) swap(A[j], A[j + 1]);
-    }
-  }
+  for (int i = 0; i < len;i++)
+    for (int j = 0; j < len - i;j++) if (compare(A[j], A[j + 1]) == 1) swap(A[j], A[j + 1]);
 }
 
 int com(char* A, char* B) {
@@ -40,14 +35,11 @@ int com(char* A, char* B) {
   strcpy(a_, A); strcpy(b_, B);
   do {
     char* A_ = strrchr(a_, ' ');
-    A_ = A_ ? A_ : a_;
-
     char* B_ = strrchr(b_, ' ');
+    A_ = A_ ? A_ : a_;
     B_ = B_ ? B_ : b_;
-
     if (!(strlen(a_) && strlen(b_))) return 0;
     if (strcmp(A_, B_)) return strcmp(A_, B_);
-
     a_[strlen(a_) - strlen(A_)] = '\0';
     b_[strlen(b_) - strlen(B_)] = '\0';
   } while (1);
