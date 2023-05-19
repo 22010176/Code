@@ -4,14 +4,9 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-char* ShiftChar(char* A, int num);
-char* StrEncode(char* A, char (*func)(int));
-char* inputChar(int len);
-char* reverse(char* A);
-char* GetName(char* A);
-char* StripSpace(char* A);
-char* format(char* A);
-char* StrShift(char* A, int num);
+char* StripSpace(char*);
+char* format(char*);
+char* StrShift(char*, int);
 
 void nhapN(int* n) {
   printf("\nNhap so Nguyen: ");
@@ -78,34 +73,6 @@ int main() {
   // 4
 
 }
-
-
-char* inputChar(int len) {
-  char* ten = malloc(sizeof(char) * len);
-  gets(ten);
-  return ten;
-}
-char* reverse(char* A) {
-  int len = strlen(A);
-  char* B = malloc((len + 1) * sizeof(char));
-  for (int i = len - 1, j = 0; i >= 0;i--, j++) B[j] = A[i];
-  B[len] = '\0';
-  return B;
-}
-char* GetName(char* A) {
-  int len = strlen(A), index, nameLen = 0;
-  char* B = malloc((len + 1) * sizeof(char));
-  for (int i = len - 1, j = 0, c = 0;i >= 0;i--) {
-    if (isspace(A[i]) && c == 1) break;
-    if (isspace(A[i])) continue;
-    B[j++] = A[i];
-    nameLen++;
-    c = 1;
-  }
-  B[nameLen] = '\0';
-  strcpy(B, reverse(B));
-  printf("%s\n", B);
-}
 char* StripSpace(char* A) {
   int len = strlen(A), lenC = 0;;
   char* B = malloc((len + 1) * sizeof(char));
@@ -141,35 +108,5 @@ char* format(char* A) {
     c = 0;
   }
   C[lenC] = '\0';
-  return C;
-}
-char* StrShift(char* A, int num) {
-  int len = strlen(A);
-  char* C = malloc((len + 1) * sizeof(char));
-  C[len] = '\0';
-  for (int i = 0; i < len;i++) {
-    C[(i + num) % len] = A[i];
-  }
-  return C;
-}
-
-char* StrEncode(char* A, char (*func)(int)) {
-  char* C = malloc((strlen(A) + 1) * sizeof(char));
-  for (int i = 0; i < strlen(A);i++) C[i] = func(A[i]);
-  C[strlen(A)] = '\0';
-  return C;
-}
-char Test(int a) {
-  switch (a) {
-  case ' ': return 'B';
-  default: return a;
-  }
-}
-char* ShiftChar(char* A, int num) {
-  char* C = malloc((strlen(A) + 1) * sizeof(char));
-  for (int i = 0; i < strlen(A);i++) {
-    C[i] = (A[i] + num - 32) % 95 + 32;
-  }
-  C[strlen(A)] = '\0';
   return C;
 }
