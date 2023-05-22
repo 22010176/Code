@@ -18,7 +18,5 @@ int b(int (*A)(int, int))
 }
 // int Func3
 int main() {
-    char a[] = "a";
-    char b[] = "b";
-    printf("%d", strcmp(a, b));
+
 }
