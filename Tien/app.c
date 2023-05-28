@@ -43,22 +43,37 @@ double* _125(double* A, int len) {
   }
   return p;
 }
+void inputf(double* A, int len) {
+  int i;for (i = 0; i < len;i++) scanf("%lf", A + i);
+}
+char* _1(char* B, char a, char b) {
+  char* A = malloc((strlen(B) + 1) * sizeof(char));
+  int i;
+  for (i = 0; i < strlen(B);i++) {
+    if (B[i] == a) A[i] = b;
+    else A[i] = B[i];
+  }
+  A[strlen(B)] = '\0';
+  return A;
+}
+char* _137(char* B, int a) {
+  int i;
+  char* A = malloc((strlen(B) + 1) * sizeof(char));
+  for (i = 0; i < strlen(B);i++) A[(i + a) % strlen(B)] = B[i];
+  A[strlen(B)] = '\0';
+  return A;
+}
+char* _136(char* B, int x) {
+  int i;
+  char* A = malloc((strlen(B) + 1) * sizeof(char));
+  for (i = 0; i < strlen(B);i++) {
+    if (B[i] <= 91) A[i] = ((B[i] - 65) + x) % 26 + 65;
+    else A[i] = ((B[i] - 97) + x) % 26 + 97;
+  }
+  A[strlen(B)] = '\0';
+  return A;
+}
 int main() {
-  // Bai 11.5
-  printf("Bai 11.5: %d\n", _115("aD3Da"));
-
-  // Bai 12.2
-  double a[3] = { 1.3,45.34,23.4 };
-  double* x = _122(a, 3);
-  printf("Bai 12.2: %p %lf\n", x, *x);
-
-  // Bai 12.1
-  int A[6] = { 1,2,3,4,5,6 };
-  printf("Bai 12.1: %d\n", _121(A, 6));
-
-  // Bai 12.5
-  double A_[5] = { 1.2,3.45,45.35,32.3,4.5 };
-  double* a_ = _125(A_, 6);
-  printf("Bai 12.5: %p %lf\n", a_, *a_);
 
 }
+
